@@ -50,8 +50,28 @@
 
 <body>
   <script>
-    const sakura = document.createElement('sakura');
-    document.body.appendChild(sakura);
+    function mksakura() {
+      requestAnimationFrame(mksakura);
+      const sakura = document.createElement('sakura');
+
+      sakura.style.left = Math.random() * window.innerWidth + 'px';
+      sakura.style.top = Math.random() * window.innerHeight + 'px';
+
+
+      sakura.animate([
+        { transform: `translate3d(0, 0, 0)`, opacity: 0 },
+        { transform: `translate3d(0, 0, 1000px)`, opacity: 1 }
+      ], {
+        duration: 2000,
+        fill: 'both',
+      }).addEventListener('finish', (event) => {
+        document.body.removeChild(sakura);
+      });
+
+      document.body.appendChild(sakura);
+
+    }
+    mksakura();
   </script>
 </body>
 
